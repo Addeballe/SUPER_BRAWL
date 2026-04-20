@@ -7,4 +7,4 @@ class Gladiator:
         self.defence = 0
 
     def take_damage(self, damage):
-        self.health -= (damage - self.self.defence)
+        self.health -= (damage - self.defence)
