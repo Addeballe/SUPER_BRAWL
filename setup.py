@@ -18,6 +18,9 @@ cnx.executescript("""
         ('Hello World',    'My first post.',   1),
         ('Second Post',    'More content.',    1),
         ('Bob''s Post',    'Bob writes too.',  2);
+                  
+    INSERT INTO User Highscores (name, score) VALUES 
+        ('Testuser', '10'); 
 """)
 
 cnx.commit()

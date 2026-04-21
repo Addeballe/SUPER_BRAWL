@@ -13,3 +13,8 @@ CREATE TABLE IF NOT EXISTS Post (
     created_at  TEXT    NOT NULL DEFAULT (datetime('now')),
     FOREIGN KEY (user_id) REFERENCES User(id)
 );
+
+CREATE TABLE IF NOT EXISTS Highscores (
+    name TEXT NOT NULL,
+    score INTEGER NOT NULL
+);
