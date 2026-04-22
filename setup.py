@@ -5,22 +5,13 @@ SCHEMA_FILE = "schema.sql"
 
 cnx = sqlite3.connect(DB_FILE)
 
-with open(SCHEMA_FILE, "r") as f:
-    cnx.executescript(f.read())
+with open(SCHEMA_FILE, "r") as schemafil:
+    cnx.executescript(schemafil.read())
 
 # Seed data
 cnx.executescript("""
-    INSERT INTO User (name, email) VALUES
-        ('Alice', 'alice@example.com'),
-        ('Bob',   'bob@example.com');
-
-    INSERT INTO Post (title, body, user_id) VALUES
-        ('Hello World',    'My first post.',   1),
-        ('Second Post',    'More content.',    1),
-        ('Bob''s Post',    'Bob writes too.',  2);
-                  
-    INSERT INTO User Highscores (name, score) VALUES 
-        ('Testuser', '10'); 
+    INSERT INTO Highscores (name, score) VALUES 
+    ('Testuser', '10'); 
 """)
 
 cnx.commit()

@@ -11,7 +11,7 @@ except sqlite3.Error as err:
     raise SystemExit(1)
 
 highscore = cnx.cursor()
-query = ("SELECT Post.*, User.name as author FROM Post JOIN User ON Post.user_id = User.id")
+query = ("SELECT Highscores.*, Highscores.name as username FROM Highscores")
 highscore.execute(query)
 
 class Game:
@@ -33,10 +33,22 @@ class Game:
         print("----- GAME OVER -----")
         self.game_over = True
 
+    def printscores(self, highscore):
+        for row in highscore:
+            print(row)
+
+    def inputscores(self):
+        username = input("Input name")
+        score = input("Input score")
+        sql = "INSERT INTO Highscores (name, score) VALUES (?,?)";
+        data = (username, score)
+        cnx.execute(sql, data)
+        cnx.commit()
+
 os.system('cls')
 game = Game()
 game.dialogue(f"----- Welcome to SUPER BRAWL, the battle of champions! -----")
-playername = input("What's the name of your glorious champion? ").capitalize()
+playername = input("What's the name of your glorious champion?").capitalize()
 player = Gladiator(playername)
 opponent = Gladiator("John Enemy")
 game.dialogue(f"\n----- Gladiator {player.name} has entered the arena! -----")
@@ -45,8 +57,9 @@ os.system('cls')
 while game.game_over == False:
     game.endgame()
 
-for row in highscore:
-    print(row)
-
+c = input("'y' to insert score")
+if c == 'y':
+    game.inputscores()
+game.printscores(highscore)
 highscore.close()
 cnx.close()
