@@ -1,7 +1,10 @@
+from equipment import headgear, bodygear, leggear, weapon
 from Gladiator import Gladiator
+from random import randint
 import sqlite3
 import os
 
+# DATABASE
 DB_FILE = "database.db"
 
 try:
@@ -14,6 +17,7 @@ highscore = cnx.cursor()
 query = ("SELECT Highscores.*, Highscores.name as username FROM Highscores")
 highscore.execute(query)
 
+# SETUP
 class Game:
     def __init__(self):
         self.round = 0
@@ -47,6 +51,8 @@ class Game:
 
 os.system('cls')
 game = Game()
+
+# INTRO
 game.dialogue(f"----- Welcome to SUPER BRAWL, the battle of champions! -----")
 playername = input("What's the name of your glorious champion?").capitalize()
 player = Gladiator(playername)
@@ -54,9 +60,11 @@ opponent = Gladiator("John Enemy")
 game.dialogue(f"\n----- Gladiator {player.name} has entered the arena! -----")
 os.system('cls')
 
-while game.game_over == False:
+# GAME
+while game.game_over == False: 
     game.endgame()
-
+    
+# END
 c = input("'y' to insert score")
 if c == 'y':
     game.inputscores()
