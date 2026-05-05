@@ -1,8 +1,8 @@
-from equipment import headgear, bodygear, leggear, weapon
+from equipment import equipment
 from Gladiator import Gladiator
 from random import randint
 import sqlite3
-import os
+from os import system
 
 # DATABASE
 DB_FILE = "database.db"
@@ -21,7 +21,7 @@ highscore.execute(query)
 class Game:
     def __init__(self):
         self.round = 0
-        self.game_over = False
+        self.active = True
         self.score = 0
         self.event = "null"
     
@@ -35,7 +35,7 @@ class Game:
 
     def endgame(self):
         print("----- GAME OVER -----")
-        self.game_over = True
+        self.active = False
 
     def printscores(self, highscore):
         for row in highscore:
@@ -49,7 +49,7 @@ class Game:
         cnx.execute(sql, data)
         cnx.commit()
 
-os.system('cls')
+system('cls')
 game = Game()
 
 # INTRO
@@ -58,10 +58,17 @@ playername = input("What's the name of your glorious champion?").capitalize()
 player = Gladiator(playername)
 opponent = Gladiator("John Enemy")
 game.dialogue(f"\n----- Gladiator {player.name} has entered the arena! -----")
-os.system('cls')
+system('cls')
+
+for i, obj in equipment.items():
+    print(i)
+    
+    for y in obj:
+        print(y + ':', obj[y])
+    input()
 
 # GAME
-while game.game_over == False: 
+while game.active == True: 
     game.endgame()
     
 # END
