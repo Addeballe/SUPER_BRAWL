@@ -1,4 +1,4 @@
-from equipment import equipment
+from equipment import headgear, bodgear, leggear, weapon
 from Gladiator import Gladiator
 from random import randint
 import sqlite3
@@ -53,19 +53,31 @@ system('cls')
 game = Game()
 
 # INTRO
-game.dialogue(f"----- Welcome to SUPER BRAWL, the battle of champions! -----")
-playername = input("What's the name of your glorious champion?").capitalize()
-player = Gladiator(playername)
+game.dialogue(f"\n----- Welcome to SUPER BRAWL, the battle of champions! -----")
+player = Gladiator(input("What's the name of your glorious champion?\n").capitalize())
 opponent = Gladiator("John Enemy")
-game.dialogue(f"\n----- Gladiator {player.name} has entered the arena! -----")
+game.dialogue(f"\n----- Gladiator {player.name} and Gladiator {opponent.name} has entered the arena! -----")
 system('cls')
 
-for i, obj in equipment.items():
-    print(i)
+game.dialogue("\n----- A cart of weapons and armor has rolled up in front of you! ------")
+game.dialogue("----- You get to choose one piece of equipment for every bodypart, with each one having different stats which will affect your coming fight. -----")
+system('cls')
+game.dialogue("\n----- There is light equipment, focusing on manouverability other than defence, heavy equipment focusing on the complete opposite, and medium equipment being a good middleground. -----")
+game.dialogue("----- The Weight-stat affects how well you can attack, a higher value decreases your chance of successfull attacks late fight, and defence directly decreasing the amount of damage you take, a higher value makes you harder to kill. -----")
+game.dialogue("----- There is also the attack-stat, which increases your damage on successfull hits the higher it is. -----")
+system('cls')
+
+#forloop för varje equipmentlist där man kan välja en equipment
+while True:
+    for item in headgear:
+        print(f"{item["name"]}")
+    selected_items = [item for item in headgear if item["name"] == input("----- Choose equipment -----\n")]
+    for item in selected_items:
+            print(item)
+
     
-    for y in obj:
-        print(y + ':', obj[y])
-    input()
+                
+        
 
 # GAME
 while game.active == True: 
