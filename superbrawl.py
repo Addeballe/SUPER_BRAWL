@@ -49,35 +49,64 @@ class Game:
         cnx.execute(sql, data)
         cnx.commit()
 
+    def gearprint(self, itemlist):
+        for item in itemlist:
+            if item["weight"] == 0: prefix = "[NONE]"
+            elif item["weight"] == 5: prefix = "[LIGHT]"
+            elif item["weight"] == 10: prefix = "[MEDIUM]"
+            else: prefix = "[HEAVY]"
+            if itemlist == weapon:
+                print(f"{prefix} - {item["name"].capitalize()} - Weight: {item["weight"]}, Defence: {item["attack"]}")
+            else:
+                print(f"{prefix} - {item["name"].capitalize()} - Weight: {item["weight"]}, Defence: {item["defence"]}")
+
 system('cls')
 game = Game()
 
 # INTRO
-game.dialogue(f"\n----- Welcome to SUPER BRAWL, the battle of champions! -----")
+game.dialogue(f"----- Welcome to SUPER BRAWL, the battle of champions! -----")
 player = Gladiator(input("What's the name of your glorious champion?\n").capitalize())
 opponent = Gladiator("John Enemy")
 game.dialogue(f"\n----- Gladiator {player.name} and Gladiator {opponent.name} has entered the arena! -----")
 system('cls')
 
-game.dialogue("\n----- A cart of weapons and armor has rolled up in front of you! ------")
+game.dialogue("----- A cart of weapons and armor has rolled up in front of you! ------")
 game.dialogue("----- You get to choose one piece of equipment for every bodypart, with each one having different stats which will affect your coming fight. -----")
 system('cls')
-game.dialogue("\n----- There is light equipment, focusing on manouverability other than defence, heavy equipment focusing on the complete opposite, and medium equipment being a good middleground. -----")
-game.dialogue("----- The Weight-stat affects how well you can attack, a higher value decreases your chance of successfull attacks late fight, and defence directly decreasing the amount of damage you take, a higher value makes you harder to kill. -----")
-game.dialogue("----- There is also the attack-stat, which increases your damage on successfull hits the higher it is. -----")
+game.dialogue("\n----- Three paths await you: LIGHT gear for speed and precision, HEAVY for an impenetrable defense, or BALANCED for versatility. -----")
+game.dialogue("----- Choose wisely! Weight drains your stamina—move and strike faster with light armor, but risk taking more hits. Defence is your shield against enemy blades. Attack determines how much pain you deal when your blows connect. -----")
 system('cls')
 
 #forloop för varje equipmentlist där man kan välja en equipment
 while True:
-    for item in headgear:
-        print(f"{item["name"]}")
-    selected_items = [item for item in headgear if item["name"] == input("----- Choose equipment -----\n")]
-    for item in selected_items:
-            print(item)
+    print("----- Choose your headgear! -----")
+    game.gearprint(headgear)
+    headgear_choice = input("\n")
+    selected_item = [item for item in headgear if item["name"] == headgear_choice]
+    if selected_item:
+        player.defence += selected_item[0]["defence"] 
+        system('cls')
+        break
+    else:
+        system('cls')
+        game.dialogue("----- Equipment not found, try again. Type only name. -----")
+    system('cls')
 
-    
-                
-        
+while True:
+    print("----- Choose your bodygear! -----")
+    game.gearprint(bodgear)
+    bodgear_choice = input("\n")
+    selected_item = [item for item in bodgear if item["name"] == bodgear_choice]
+    if selected_item:
+        player.defence += selected_item[0]["defence"] 
+        system('cls')
+        break
+    else:
+        system('cls')
+        game.dialogue("----- Equipment not found, try again. Type only name. -----")
+    system('cls')
+
+
 
 # GAME
 while game.active == True: 

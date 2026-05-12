@@ -1,6 +1,6 @@
 headgear = [
     { "name": "none", "weight": 0, "defence": 0},
-    { "name": "skull Cap", "weight": 5, "defence": 5},
+    { "name": "skull cap", "weight": 5, "defence": 5},
     { "name": "sallet",  "weight": 10, "defence": 10},
     { "name": "armet",  "weight": 15, "defence": 15}
 ]
