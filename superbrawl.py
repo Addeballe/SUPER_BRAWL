@@ -59,9 +59,9 @@ class Game:
                 print(f"{prefix} - {item["name"].capitalize()} - Weight: {item["weight"]}, Defence: {item["attack"]}")
             else:
                 print(f"{prefix} - {item["name"].capitalize()} - Weight: {item["weight"]}, Defence: {item["defence"]}")
-
 system('cls')
 game = Game()
+
 
 # INTRO
 game.dialogue(f"----- Welcome to SUPER BRAWL, the battle of champions! -----")
@@ -74,7 +74,7 @@ game.dialogue("----- A cart of weapons and armor has rolled up in front of you! 
 game.dialogue("----- You get to choose one piece of equipment for every bodypart, with each one having different stats which will affect your coming fight. -----")
 system('cls')
 game.dialogue("\n----- Three paths await you: LIGHT gear for speed and precision, HEAVY for an impenetrable defense, or BALANCED for versatility. -----")
-game.dialogue("----- Choose wisely! Weight drains your stamina—move and strike faster with light armor, but risk taking more hits. Defence is your shield against enemy blades. Attack determines how much pain you deal when your blows connect. -----")
+game.dialogue("----- Choose wisely! Weight drains your stamina more when you make an attack and you strike more certainly with light armor, but risk taking more hits. Defence is your shield against enemy blades. Attack determines how much pain you deal when your blows connect. -----")
 system('cls')
 
 #forloop för varje equipmentlist där man kan välja en equipment
@@ -152,17 +152,19 @@ system('cls')
 faces = ["(˙ʟ˙)", "(ಠ_ಠ)", "(¬_¬)", "(o.o)", "(T_T)", "(<_<)", "(p_o)", "(D_D)"]
 playerstamina = 100
 enemystamina = 100
+turn = "player_turn"
+actions = ["[1] Attack", "[2] Defend", "[3] Do nothing"]
 score = 0
 while game.active == True:
-    victory = False
     enemyface = random.choice(faces)
-    while victory == False:
-        continue
+    while True:
+        if opponent.health <= 0 or player.health <= 0:
+            break
     game.endgame()
     
 # END
 c = input("'y' to insert score")
-if c == 'y':
+if c == 'y' or 'Y':
     game.inputscores()
 game.printscores(highscore)
 highscore.close()
