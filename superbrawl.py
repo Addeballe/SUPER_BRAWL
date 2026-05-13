@@ -1,6 +1,6 @@
 from equipment import headgear, bodgear, leggear, weapon
 from Gladiator import Gladiator
-from random import randint
+import random
 import sqlite3
 from os import system
 
@@ -85,6 +85,7 @@ while True:
     selected_item = [item for item in headgear if item["name"] == headgear_choice]
     if selected_item:
         player.defence += selected_item[0]["defence"] 
+        player.weight += selected_item[0]["weight"]
         system('cls')
         break
     else:
@@ -98,7 +99,8 @@ while True:
     bodgear_choice = input("\n")
     selected_item = [item for item in bodgear if item["name"] == bodgear_choice]
     if selected_item:
-        player.defence += selected_item[0]["defence"] 
+        player.defence += selected_item[0]["defence"]
+        player.weight += selected_item[0]["weight"] 
         system('cls')
         break
     else:
@@ -106,10 +108,56 @@ while True:
         game.dialogue("----- Equipment not found, try again. Type only name. -----")
     system('cls')
 
+while True:
+    print("----- Choose your leggear! -----")
+    game.gearprint(leggear)
+    leggear_choice = input("\n")
+    selected_item = [item for item in leggear if item["name"] == leggear_choice]
+    if selected_item:
+        player.defence += selected_item[0]["defence"]
+        player.weight += selected_item[0]["weight"] 
+        system('cls')
+        break
+    else:
+        system('cls')
+        game.dialogue("----- Equipment not found, try again. Type only name. -----")
+    system('cls')
 
+while True:
+    print("----- Choose your weapon! -----")
+    game.gearprint(weapon)
+    weapon_choice = input("\n")
+    selected_item = [item for item in weapon if item["name"] == weapon_choice]
+    if selected_item:
+        player.attack += selected_item[0]["attack"]
+        player.weight += selected_item[0]["weight"] 
+        system('cls')
+        break
+    else:
+        system('cls')
+        game.dialogue("----- Equipment not found, try again. Type only name. -----")
+    system('cls')
 
+# enemy equipment
+enemy_headgear = random.choice(headgear) 
+enemy_bodgear = random.choice(bodgear)
+enemy_leggear = random.choice(leggear)
+enemy_weapon = random.choice(weapon)
+opponent.defence += enemy_headgear["defence"] + enemy_bodgear["defence"] + enemy_leggear["defence"]
+opponent.weight += enemy_headgear["weight"] + enemy_bodgear["weight"] + enemy_leggear["weight"] + enemy_weapon["weight"]
+opponent.attack += enemy_weapon["attack"]
+game.dialogue(f"----- {opponent.name} chooses {enemy_headgear["name"]} as headgear, {enemy_bodgear["name"]} as bodygear,\n{enemy_leggear["name"]} as leggear and {enemy_weapon["name"]} as their weapon! -----")
+system('cls')
 # GAME
-while game.active == True: 
+faces = ["(˙ʟ˙)", "(ಠ_ಠ)", "(¬_¬)", "(o.o)", "(T_T)", "(<_<)", "(p_o)", "(D_D)"]
+playerstamina = 100
+enemystamina = 100
+score = 0
+while game.active == True:
+    victory = False
+    enemyface = random.choice(faces)
+    while victory == False:
+        continue
     game.endgame()
     
 # END
